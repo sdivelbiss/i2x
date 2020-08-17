@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { rgba } from "polished";
 
-import { STATUS } from "../../../../constants/constants";
+import { STATUS, STATUS_COLORS } from "../../../../constants/constants";
 
 const pulse = (color) => keyframes`
   0% {
@@ -19,12 +19,6 @@ const pulse = (color) => keyframes`
 		box-shadow: 0 0 0 0 ${rgba(color, 0)};
 	}
 `;
-
-const STATUS_COLORS = {
-  offline: "#E55934",
-  idle: "#FDE74C",
-  online: "#9BC53D"
-};
 
 const StatusIndicator = styled.div`
   background: ${(props) => STATUS_COLORS[props.status]};

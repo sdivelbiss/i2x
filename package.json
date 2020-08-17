@@ -19,7 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jsdom-fifteen",
     "eject": "react-scripts eject",
     "readme": "npx showdown makehtml -i README.MD -o README.html"
   },
@@ -31,5 +31,12 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.3",
+    "@testing-library/react": "^10.4.8",
+    "@testing-library/user-event": "^12.1.1",
+    "jest-environment-jsdom-fifteen": "^1.0.2",
+    "redux-mock-store": "^1.5.4"
+  }
 }

@@ -1,67 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
-import { compact } from "lodash";
+import { useDispatch } from "react-redux";
 
 import Button from "../button/Button";
-import {
-  globalStore_getPhrases,
-  globalStore_setPhrases,
-  globalStore_deletePhrase
-} from "../../stores/globalStore/GlobalStore";
-import { useASRClient } from "../../asr/useARSClient";
-
-const PhraseItemWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const StyledPhrase = styled.div`
-  display: flex;
-  align-items: center;
-  width: max-content;
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  padding: 2px 10px;
-  margin: 5px;
-  span {
-    &:hover {
-      cursor: pointer;
-    }
-  }
-`;
-
-const CurrentPhrases = () => {
-  const ASRInstance = useASRClient();
-  const dispatch = useDispatch();
-  const phrases = useSelector((state) => globalStore_getPhrases(state));
-  useEffect(() => {
-    if (ASRInstance.isStarted()) {
-      ASRInstance.updateSpottingConfig(compact(phrases));
-    }
-  }, [phrases]);
-
-  const deletePhrase = (phrase) => {
-    dispatch(globalStore_deletePhrase(phrase));
-  };
-  return (
-    <PhraseItemWrapper>
-      {phrases.map((phrase) => (
-        <StyledPhrase key={phrase}>
-          {phrase}{" "}
-          <span
-            onClick={() => deletePhrase(phrase)}
-            aria-label={"delete phrase"}
-            role="img"
-          >
-            ✖️
-          </span>
-        </StyledPhrase>
-      ))}
-    </PhraseItemWrapper>
-  );
-};
+import { globalStore_setPhrases } from "../../stores/globalStore/GlobalStore";
+import CurrentPhrases from "./components/currentPhrases/CurrentPhrases";
 
 const StyledPhraseWrapper = styled.div`
   padding: 20px 0px;
@@ -98,8 +41,14 @@ function Phrases() {
     <StyledPhraseWrapper>
       <PhraseTitle>Phrases</PhraseTitle>
       <AddPhraseWrapper>
-        <input onChange={(e) => setValue(e.target.value)} value={value} />
-        <Button onClick={addPhrase}>Add</Button>
+        <input
+          onChange={(e) => setValue(e.target.value)}
+          value={value}
+          data-testid={"add-phrase-input"}
+        />
+        <Button onClick={addPhrase} data-testid={"add-phrase"}>
+          Add
+        </Button>
       </AddPhraseWrapper>
       <CurrentPhrases />
     </StyledPhraseWrapper>

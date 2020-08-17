@@ -18,7 +18,7 @@ const StyledTranscriptHeader = styled.div`
   justify-content: space-between;
   padding: 10px 0;
   align-items: baseline;
-  .transcript-status {
+  #transcript-status {
     display: flex;
     font-size: 1.5rem;
     font-weight: 300;
@@ -86,11 +86,11 @@ function TranscriptHeader() {
 
   return (
     <StyledTranscriptHeader>
-      <div className={"transcript-status"}>
+      <div id={"transcript-status"} data-testid={"transcript-status"}>
         Status: {statusText()} <StatusIndicator status={status} />
       </div>
       <StatusArea>
-        <Button onClick={toggleSession}>
+        <Button onClick={toggleSession} data-testid={"session-button"}>
           {status === STATUS.OFFLINE ? "Start" : "Stop"}
         </Button>
       </StatusArea>
