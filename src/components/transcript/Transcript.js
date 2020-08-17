@@ -13,7 +13,7 @@ const TranscriptWrapper = styled.div`
 
 const StyledTranscript = styled.div`
   width: 45vw;
-  height: 600px;
+  height: 65vh;
   overflow-y: auto;
   border: 1px solid #ddd;
   border-radius: 4px;
