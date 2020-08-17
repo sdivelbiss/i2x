@@ -19,6 +19,7 @@ https://i2x.netlify.app/
 ## Build using Docker
 
 ```
+docker pull sdivelbiss/i2x
 docker build -t i2x .
 docker run --rm -it  -p 3000:3000/tcp sdivelbiss/i2x:latest
 ```
