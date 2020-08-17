@@ -28,18 +28,21 @@ const PhraseTitle = styled.div`
   font-weight: 300;
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
+  padding: 10px 0;
 `;
 
 function Phrases() {
   const dispatch = useDispatch();
   const [value, setValue] = useState("");
+
+  // set the new phrase to the store and then clear the input value
   const addPhrase = () => {
     dispatch(globalStore_setPhrases(value));
     setValue("");
   };
   return (
     <StyledPhraseWrapper>
-      <PhraseTitle>Phrases</PhraseTitle>
+      <PhraseTitle>Search Phrases</PhraseTitle>
       <AddPhraseWrapper>
         <input
           onChange={(e) => setValue(e.target.value)}

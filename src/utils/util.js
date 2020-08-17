@@ -79,34 +79,3 @@ export const transformLog = (log = []) => {
   }
   return newLog;
 };
-
-/**
- * {
-  "log": [
-    {
-      "transcript": {
-        "utterance": "My name's, Scott.",
-        "startOffsetMsec": 2490,
-        "endOffsetMsec": 3960
-      },
-      "spotted": []
-    },
-    {
-      "transcript": {
-        "utterance": "How're you.",
-        "startOffsetMsec": 5640,
-        "endOffsetMsec": 6690
-      },
-      "spotted": ["you"]
-    },
-    {
-      "transcript": {
-        "utterance": "OK, here's a really long sentence that Doesn't stop.",
-        "startOffsetMsec": 8160,
-        "endOffsetMsec": 10560
-      },
-      "spotted": []
-    }
-  ]
-}
- */

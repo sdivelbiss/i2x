@@ -19,6 +19,7 @@ const StyledTranscript = styled.div`
   border-radius: 4px;
   display: flex;
   flex-direction: column;
+  scroll-snap-type: y mandatory;
 `;
 
 const TextBubble = styled.div`
@@ -29,6 +30,7 @@ const TextBubble = styled.div`
   margin: 10px;
   padding: 10px;
   align-self: flex-end;
+  scroll-snap-align: start;
   :after {
     content: "";
     position: absolute;
@@ -56,8 +58,22 @@ export default function Transcript({ toggle }) {
   useEffect(() => {
     const filterLog = log.filter((l) => l.transcript);
     const response = transformLog(filterLog);
-    setTransformedLog(response);
+    // Make sure that we are only setting full objects to state
+    const filterResponse = response.filter((r) => r.text);
+    setTransformedLog(filterResponse);
   }, [log]);
+
+  useEffect(() => {
+    // Scroll last text bubble into view
+    if (transformedLog.length > 0) {
+      // Get the element by the id
+      const element = document.getElementById(
+        `text-bubble-${transformedLog.length - 1}`
+      );
+      // scroll to element
+      element.scrollIntoView();
+    }
+  }, [transformedLog]); // Fire when transformedLog changes
 
   return (
     <TranscriptWrapper>
@@ -65,7 +81,11 @@ export default function Transcript({ toggle }) {
 
       <StyledTranscript>
         {transformedLog.map(({ text }, i) =>
-          text ? <TextBubble key={i}>{ReactHtmlParser(text)}</TextBubble> : null
+          text ? (
+            <TextBubble key={i} id={`text-bubble-${i}`}>
+              {ReactHtmlParser(text)}
+            </TextBubble>
+          ) : null
         )}
       </StyledTranscript>
     </TranscriptWrapper>

@@ -33,8 +33,11 @@ const StyledPhrase = styled.div`
 const CurrentPhrases = () => {
   const ASRInstance = useASRClient();
   const dispatch = useDispatch();
+
+  // gets all the current phrases currently in the store
   const phrases = useSelector((state) => globalStore_getPhrases(state));
   useEffect(() => {
+    // If the ASRClient is running, update immediately
     if (ASRInstance.isStarted()) {
       ASRInstance.updateSpottingConfig(compact(phrases));
     }

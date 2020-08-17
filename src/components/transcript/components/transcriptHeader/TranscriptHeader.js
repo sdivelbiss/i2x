@@ -34,7 +34,10 @@ function TranscriptHeader() {
   const dispatch = useDispatch();
   const ASRInstance = useASRClient();
 
+  // status is either 'online', 'error', or 'offline'
   const status = useSelector((state) => globalStore_getConnectionStatus(state));
+
+  // Phrases are sent into the ASRClient for spotting
   const phrases = useSelector((state) => globalStore_getPhrases(state));
 
   const statusText = () => {
@@ -54,16 +57,20 @@ function TranscriptHeader() {
   };
 
   const onMessage = (error, results) => {
+    // catch error from message, set status to error
     if (error) {
       dispatch(globalStore_setConnectionStatus(STATUS.ERROR));
     } else {
+      // If not error, add the result to the log in the store
       dispatch(globalStore_setLogResults(results));
     }
   };
 
   const startSession = async () => {
+    // Start ASRClient
     try {
       ASRInstance.start(phrases, onMessage);
+      // Set the status to online once isStarted === true
       await waitForFunc(() => ASRInstance.isStarted());
       dispatch(globalStore_setConnectionStatus(STATUS.ONLINE));
     } catch (error) {
@@ -72,6 +79,7 @@ function TranscriptHeader() {
   };
 
   const stopSession = () => {
+    // Stop ASRClient
     ASRInstance.stop();
     dispatch(globalStore_setConnectionStatus(STATUS.OFFLINE));
   };
