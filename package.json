@@ -1,8 +1,9 @@
 {
-  "name": "fe-challenge",
+  "name": "scott-i2x",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "dompurify": "^2.0.12",
     "lodash": "4.17.11",
     "polished": "^3.6.5",
     "protobufjs": "6.8.8",

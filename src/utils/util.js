@@ -1,3 +1,5 @@
+import DOMPurify from "dompurify";
+
 const TWO_SECONDS = 2000;
 
 const boldText = (input, wordsToBold) => {
@@ -19,9 +21,11 @@ class TranscriptLogItem {
     this.savedText = nextText ? `${text} ${nextText}` : text;
     this.savedSpotted = spotted;
     // Bold each bit of text individually, this allows the user to input more sporrted words on the fly and have them only
-    this.text = nextText
+    const transformedText = nextText
       ? `${boldText(this.savedText, spotted)}`
       : boldText(text, spotted);
+    const sanitizedText = DOMPurify.sanitize(transformedText);
+    this.text = sanitizedText;
   }
 }
 
